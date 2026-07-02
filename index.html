@@ -975,6 +975,94 @@
             </div>
           </div>
 
+          <!-- Card 8: Not Tracking on Versaterm / CAD -->
+          <div class="tech-card card-network" data-keywords="versaterm cad dispatch avl not tracking map location coordinates gps">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">Not Tracking (Versaterm)</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-network">AVL / CAD</span>
+            </div>
+            <div class="card-symptom-box">Dispatch reports "you are not tracking on CAD" or your unit is missing from dispatch maps.</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>Verify the Cradlepoint router's GPS status light is solid green (on the IBR1900 hardware panel).</li>
+              <li>Check that the Tablet Command app has your correct vehicle unit ID active.</li>
+              <li>GPS tracking relies on ignition sense. Cycle vehicle engine off and back on to reboot the AVL tracking unit.</li>
+            </ul>
+            <div class="card-footer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Escalate: Required if GPS light is off/flashing red.
+            </div>
+          </div>
+
+          <!-- Card 9: Location Services / AVL Stuck -->
+          <div class="tech-card card-network" data-keywords="tablet command location stuck avl greyed out location services precise allow map cursor">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">Stuck Location (iPad Map)</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-network">iPad GPS</span>
+            </div>
+            <div class="card-symptom-box">iPad shows incident details, but the location cursor on the map is stuck or greyed out.</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>Open iOS Settings -> Privacy & Security -> <code>Location Services</code>.</li>
+              <li>Ensure Location Services is enabled globally, and Tablet Command is set to <code>Always Allow</code>.</li>
+              <li>Ensure <code>Precise Location</code> is toggled ON under the Tablet Command location settings.</li>
+            </ul>
+            <div class="card-footer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Notice: Metal bays block GPS signals. Test outdoors.
+            </div>
+          </div>
+
+          <!-- Card 10: IT Hardware & Spares -->
+          <div class="tech-card card-network" data-keywords="screen protectors mounts chargers spares cables styluses stylus ipad accessories stylus">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">Need IT Spares / Protectors</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-network">Hardware</span>
+            </div>
+            <div class="card-symptom-box">Crew needs replacement screen protectors, chargers, vehicle mounts, or cables.</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>Check the marked <code>IT Supply Box</code> located in the station office cabinet (Station 7 & Station 19).</li>
+              <li>Only use Apple-certified chargers from the box; generic cords cause screen noise and battery issues.</li>
+              <li>Clean the screen with an alcohol wipe from the box before applying new screen protectors.</li>
+            </ul>
+            <div class="card-footer" style="color:var(--primary)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              Notice: Leave a note if you take the last spare.
+            </div>
+          </div>
+
+          <!-- Card 11: Passwords & Logins -->
+          <div class="tech-card card-network" data-keywords="passwords logins credentials active directory wifi tablet command woodsidefire target solutions active911 lockouts reset">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">Logins & WiFi Passwords</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-network">Accounts</span>
+            </div>
+            <div class="card-symptom-box">Locked out of dispatch apps, forgot passwords, or need the rig Wi-Fi security keys.</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li><strong>Rig Wi-Fi Password</strong>: Printed on the bottom side of the Cradlepoint router bracket inside the glove box / wiring bay.</li>
+              <li><strong>Tablet Command / Target Solutions</strong>: Do not create new accounts. Lockouts are synced via your official <code>woodsidefire.org</code> email account.</li>
+              <li><strong>Station Wi-Fi</strong>: Secure station Wi-Fi uses your standard Active Directory logins (same as station computers).</li>
+            </ul>
+            <div class="card-footer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Escalate: For email unlocks or reset codes.
+            </div>
+          </div>
+
         </div>
 
         <!-- ── SSID & NETWORK REFERENCE TABLE PANEL ── -->
