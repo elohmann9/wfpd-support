@@ -679,7 +679,6 @@
     /* ── WI-FI QR CODE GENERATOR PANEL ── */
     .qr-generator-panel {
       margin-top: 10px;
-      display: none; /* Hidden by default, visible in admin mode */
     }
 
     .qr-layout {
@@ -1388,57 +1387,47 @@
         </div>
 
         <!-- ── WI-FI QR CODE GENERATOR PANEL ── -->
+        <!-- ── WI-FI QR CODE APPARATUS PANEL ── -->
         <div class="panel qr-generator-panel">
           <div class="console-table-header" style="border-bottom: none; padding-bottom: 8px;">
             <div class="console-table-title" style="display: flex; align-items: center; gap: 8px;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><rect x="7" y="7" width="3" height="3"></rect><rect x="14" y="7" width="3" height="3"></rect><rect x="7" y="14" width="3" height="3"></rect><path d="M14 14h3v3h-3z"></path></svg>
-              Apparatus Wi-Fi QR Generator
+              Apparatus Wi-Fi Connection
             </div>
           </div>
           
           <div style="padding: 0 20px 20px 20px;">
             <div class="qr-layout">
               <div class="qr-inputs">
-                <p class="qr-desc">Select an apparatus and enter the WPA security key from Vaultwarden to generate an instant connection QR code. Scan this with an iPhone or iPad camera to join the secure Ops network without typing.</p>
+                <p class="qr-desc">Select your apparatus unit below. Scan the generated QR code with your iPhone or iPad camera to connect to the secure Operations network without typing a password.</p>
                 
                 <div class="qr-field">
                   <label for="qrUnit">Select Apparatus Unit</label>
                   <select id="qrUnit" class="qr-select" onchange="updateWifiQr()">
-                    <option value="E7">Engine 7 (SSID: WFPD-E7)</option>
-                    <option value="E19">Engine 19 (SSID: WFPD-E19)</option>
-                    <option value="E107">Engine 107 (SSID: WFPD-E107)</option>
-                    <option value="E109">Engine 109 (SSID: WFPD-E109)</option>
-                    <option value="T7">Truck 7 (SSID: WFPD-T7)</option>
-                    <option value="R7">Rescue 7 (SSID: WFPD-R7)</option>
-                    <option value="M7">Medic 7 (SSID: WFPD-M7)</option>
-                    <option value="BC2">Battalion 2 (SSID: WFPD-BC2)</option>
+                    <option value="E7">Engine 7 (SSID: WFPD-E7-Ops)</option>
+                    <option value="E19">Engine 19 (SSID: WFPD-E19-Ops)</option>
+                    <option value="E107">Engine 107 (SSID: WFPD-E107-Ops)</option>
+                    <option value="E109">Engine 109 (SSID: WFPD-E109-Ops)</option>
+                    <option value="T7">Truck 7 (SSID: WFPD-T7-Ops)</option>
+                    <option value="R7">Rescue 7 (SSID: WFPD-R7-Ops)</option>
+                    <option value="M7">Medic 7 (SSID: WFPD-M7-Ops)</option>
+                    <option value="BC2">Battalion 2 (SSID: WFPD-BC2-Ops)</option>
                   </select>
                 </div>
                 
-                <div class="qr-field">
-                  <label for="qrPass">Enter Ops Wi-Fi Password</label>
-                  <div class="pass-input-wrapper">
-                    <input type="password" id="qrPass" class="qr-input" placeholder="Enter WPA key from Vaultwarden..." onkeyup="updateWifiQr()">
-                    <button type="button" class="pass-toggle-btn" onclick="togglePassVisibility()">Show</button>
-                  </div>
-                </div>
                 <div class="qr-field" style="margin-top: 6px;">
-                  <button type="button" id="qrPrintBtn" class="action-btn" onclick="printWifiCard()" style="background: var(--primary); border-color: var(--gold); color: white; display: none; width: 100%; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 700; height: 38px; transition: all 0.2s;">Print Connection Card</button>
+                  <button type="button" id="qrPrintBtn" class="action-btn" onclick="printWifiCard()" style="background: var(--primary); border-color: var(--gold); color: white; width: 100%; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 700; height: 38px; transition: all 0.2s;">Print Connection Card</button>
                 </div>
               </div>
               
               <div class="qr-display">
-                <div id="qrPlaceholder" class="qr-display-placeholder">
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><rect x="7" y="7" width="3" height="3"></rect><rect x="14" y="7" width="3" height="3"></rect><rect x="7" y="14" width="3" height="3"></rect><path d="M14 14h3v3h-3z"></path></svg>
-                  <p>Enter WPA password to generate QR code.</p>
-                </div>
-                <div id="qrCanvasWrapper" style="display: none; position: relative; background: #F7F4EE; border: 2px solid #C9A253; padding: 12px; line-height: 0;">
-                  <canvas id="wifiQr" style="display: block; width: 160px; height: 160px;"></canvas>
+                <div id="qrCanvasWrapper" style="position: relative; background: #F7F4EE; border: 2px solid #C9A253; padding: 12px; line-height: 0;">
+                  <img id="wifiQrImg" src="qr/E7.png" style="display: block; width: 160px; height: 160px;" alt="Wi-Fi QR Code">
                   <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; background: #F7F4EE; border: 1.5px solid #C9A253; display: flex; align-items: center; justify-content: center;">
                     <img src="logo.png" style="width: 24px; height: auto;" alt="Logo">
                   </div>
                 </div>
-                <p id="qrInstruction" class="qr-instruction" style="display: none; margin-top: 10px; font-size: 11px; font-weight: 700; color: var(--primary);">Scan with iPad/iPhone camera to connect.</p>
+                <p id="qrInstruction" class="qr-instruction" style="margin-top: 10px; font-size: 11px; font-weight: 700; color: var(--primary);">Scan with iPad/iPhone camera to connect.</p>
               </div>
             </div>
           </div>
@@ -1482,7 +1471,7 @@
       <div class="print-card-body">
         <p class="print-card-body-instruction">Point your camera at the code</p>
         <div class="print-card-qr-frame">
-          <canvas id="wifiQrPrint" class="print-card-qr-canvas"></canvas>
+          <img id="wifiQrPrintImg" class="print-card-qr-canvas" alt="QR Code">
           <div class="print-card-qr-logo-box">
             <img src="logo.png" class="print-card-qr-logo" alt="WFPD Logo">
           </div>
@@ -1502,9 +1491,6 @@
       </div>
     </div>
   </div>
-
-  <!-- QRious QR Code Generator Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 
   <!-- JavaScript Filter & QR Logic -->
   <script>
@@ -1544,64 +1530,32 @@
       });
     });
 
-    // Password Visibility Toggle
-    function togglePassVisibility() {
-      const passField = document.getElementById("qrPass");
-      const btn = document.querySelector(".pass-toggle-btn");
-      if (passField.type === "password") {
-        passField.type = "text";
-        btn.textContent = "Hide";
-      } else {
-        passField.type = "password";
-        btn.textContent = "Show";
-      }
-    }
-
-    // Wi-Fi QR Code Generation Logic
+    // Wi-Fi QR Code Selection Logic (Loads static images)
     function updateWifiQr() {
       const unit = document.getElementById("qrUnit").value;
-      const pass = document.getElementById("qrPass").value;
       const ssid = "WFPD-" + unit + "-Ops"; // Matches "WFPD-E7-Ops" standard
+      const qrPath = "qr/" + unit + ".png";
       
-      const qrText = `WIFI:S:${ssid};T:WPA;P:${pass};H:false;;`;
+      // Update screen card image source
+      const wifiQrImg = document.getElementById("wifiQrImg");
+      if (wifiQrImg) {
+        wifiQrImg.src = qrPath;
+      }
       
-      if (pass.length > 0) {
-        document.getElementById("qrCanvasWrapper").style.display = "block";
-        document.getElementById("qrPlaceholder").style.display = "none";
-        document.getElementById("qrInstruction").style.display = "block";
-        document.getElementById("qrPrintBtn").style.display = "block"; // Show print button!
-        
-        // Generate screen-size QR code (160px size)
-        new QRious({
-          element: document.getElementById("wifiQr"),
-          value: qrText,
-          size: 160,
-          level: 'H',
-          background: '#F7F4EE',
-          foreground: '#8B1E1E'
-        });
-        
-        // Generate print-size QR code (380px size)
-        new QRious({
-          element: document.getElementById("wifiQrPrint"),
-          value: qrText,
-          size: 380,
-          level: 'H',
-          background: '#F7F4EE',
-          foreground: '#8B1E1E'
-        });
-        
-        // Update SSID label on print card
-        document.getElementById("printCardSsid").textContent = ssid;
-      } else {
-        document.getElementById("qrCanvasWrapper").style.display = "none";
-        document.getElementById("qrPlaceholder").style.display = "block";
-        document.getElementById("qrInstruction").style.display = "none";
-        document.getElementById("qrPrintBtn").style.display = "none"; // Hide print button!
+      // Update print card image source
+      const wifiQrPrintImg = document.getElementById("wifiQrPrintImg");
+      if (wifiQrPrintImg) {
+        wifiQrPrintImg.src = qrPath;
+      }
+      
+      // Update SSID labels
+      const printCardSsid = document.getElementById("printCardSsid");
+      if (printCardSsid) {
+        printCardSsid.textContent = ssid;
       }
     }
 
-    // Handles the clean printing of only the generated connection card
+    // Handles the clean printing of only the selected connection card
     function printWifiCard() {
       // Direct update first
       updateWifiQr();
@@ -1618,15 +1572,9 @@
       }, 1000);
     }
 
-    // Check for admin access key to reveal the card generator panel
+    // Initialize the default selected engine QR card on page load
     window.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('admin') === 'true') {
-        const qrPanel = document.querySelector('.qr-generator-panel');
-        if (qrPanel) {
-          qrPanel.style.display = 'block';
-        }
-      }
+      updateWifiQr();
     });
   </script>
 </body>
