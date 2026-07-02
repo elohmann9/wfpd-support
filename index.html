@@ -676,6 +676,136 @@
       }
     }
 
+    /* ── WI-FI QR CODE GENERATOR PANEL ── */
+    .qr-generator-panel {
+      margin-top: 10px;
+    }
+
+    .qr-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    @media (min-width: 768px) {
+      .qr-layout {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    
+    .qr-inputs {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    
+    .qr-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    
+    .qr-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .qr-field label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+    
+    .qr-select, .qr-input {
+      width: 100%;
+      height: 38px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0 12px;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      color: var(--primary);
+      background: #ffffff;
+    }
+    
+    .qr-select:focus, .qr-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201, 165, 78, 0.15);
+    }
+    
+    .pass-input-wrapper {
+      position: relative;
+      display: flex;
+    }
+    
+    .pass-toggle-btn {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+    
+    .qr-display {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed var(--border-color);
+      background: rgba(27, 42, 74, 0.01);
+      border-radius: 8px;
+      padding: 20px;
+      min-height: 200px;
+    }
+    
+    @media (min-width: 768px) {
+      .qr-display {
+        width: 240px;
+        flex-shrink: 0;
+      }
+    }
+    
+    .qr-display-placeholder {
+      text-align: center;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+    }
+    
+    #qrCanvasWrapper {
+      text-align: center;
+    }
+    
+    #wifiQr {
+      border: 6px solid #ffffff;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: block;
+      margin: 0 auto 10px auto;
+    }
+    
+    .qr-instruction {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
     /* ── PRINT STYLES ── */
     @media print {
       body {
@@ -684,7 +814,7 @@
         font-size: 12px;
         padding-bottom: 0;
       }
-      header, .search-wrapper, .status-badge, .action-panel, .sidebar .panel:nth-child(1) {
+      header, .search-wrapper, .status-badge, .action-panel, .sidebar .panel:nth-child(1), .qr-generator-panel {
         display: none !important;
       }
       .dashboard-container {
@@ -790,9 +920,9 @@
           <div class="lane-box lane-box-in">
             <div class="lane-box-title">In Your Lane</div>
             <ul class="lane-box-list">
-              <li>Reboot Cradlepoint, Starlink, work iPhones or iPads.</li>
+              <li>Reboot Cradlepoint, work iPhones or iPads.</li>
               <li>Confirm iPad is on the primary <code>WFPD-[UNIT]</code> SSID.</li>
-              <li>Inspect cables, Starlink power connections, and SIM card seats.</li>
+              <li>Inspect cables, routing connections, and SIM card seats.</li>
               <li>Toggle Airplane Mode or renew DHCP leases on mobile devices.</li>
             </ul>
           </div>
@@ -844,51 +974,7 @@
             </div>
           </div>
 
-          <!-- Card 2: Starlink Offline -->
-          <div class="tech-card card-network" data-keywords="starlink offline internet wan bypass passthrough ethernet adapter cradlepoint power dish disconnect">
-            <div class="card-top">
-              <div class="card-name-group">
-                <h3 class="card-name">Starlink Offline</h3>
-                <span class="caret-icon">▼</span>
-              </div>
-              <span class="card-tag tag-network">Starlink</span>
-            </div>
-            <div class="card-symptom-box">Rig has no internet; cell coverage is dead and Starlink status is offline in NetCloud.</div>
-            <div class="card-body-title">Correction Action:</div>
-            <ul class="card-list">
-              <li>Confirm Starlink router power is active (check vehicle inverter switch and outlet plug).</li>
-              <li>Verify <code>Bypass Mode</code> is toggled on in the Starlink App.</li>
-              <li>Check ethernet adapter seats in both router and Cradlepoint WAN port.</li>
-            </ul>
-            <div class="card-footer">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-              Escalate: If hardware has power/link but fails to connect.
-            </div>
-          </div>
-
-          <!-- Card 3: Starlink Stuck / Stowed -->
-          <div class="tech-card card-network" data-keywords="starlink stuck stowed alignment app settings dish motor flat rotate">
-            <div class="card-top">
-              <div class="card-name-group">
-                <h3 class="card-name">Starlink Stuck / Stowed</h3>
-                <span class="caret-icon">▼</span>
-              </div>
-              <span class="card-tag tag-network">Starlink</span>
-            </div>
-            <div class="card-symptom-box">Starlink dish remains flat, refuses to rotate, or app reports status as "Stowed".</div>
-            <div class="card-body-title">Correction Action:</div>
-            <ul class="card-list">
-              <li>Connect to Starlink router and open the Starlink App on your device.</li>
-              <li>Go to Settings, scroll down, and tap <code>Unstow</code> to deploy the dish motors.</li>
-              <li>Cycle the Starlink power supply to trigger a full motor reset and re-alignment loop.</li>
-            </ul>
-            <div class="card-footer">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-              Escalate: If dish motors refuse to engage.
-            </div>
-          </div>
-
-          <!-- Card 4: iPad USB Tethering Fallback -->
+          <!-- Card 2: iPad USB Tethering Fallback -->
           <div class="tech-card card-network" data-keywords="ipad usb tethering emergency fallback wan hotspot cradlepoint failover connection">
             <div class="card-top">
               <div class="card-name-group">
@@ -897,7 +983,7 @@
               </div>
               <span class="card-tag tag-network">iPad Fallback</span>
             </div>
-            <div class="card-symptom-box">Rig primary cellular AND Starlink both fail; emergency internet link is required.</div>
+            <div class="card-symptom-box">Rig primary cellular WAN fails; emergency internet link is required.</div>
             <div class="card-body-title">Correction Action:</div>
             <ul class="card-list">
               <li>Connect work iPad to Cradlepoint IBR1900 USB port using Apple USB cable.</li>
@@ -910,7 +996,7 @@
             </div>
           </div>
 
-          <!-- Card 5: Work iPhone / iPad No Data -->
+          <!-- Card 3: Work Phone No Service -->
           <div class="tech-card card-network" data-keywords="iphone ipad no data cellular firstnet service signal airplane mode mdm">
             <div class="card-top">
               <div class="card-name-group">
@@ -932,7 +1018,7 @@
             </div>
           </div>
 
-          <!-- Card 6: MDM Profile / App Updates -->
+          <!-- Card 4: App Update Blocked -->
           <div class="tech-card card-network" data-keywords="mdm profile app updates app store waiting download wifi vpn management">
             <div class="card-top">
               <div class="card-name-group">
@@ -954,7 +1040,7 @@
             </div>
           </div>
 
-          <!-- Card 7: NCM Showing Offline -->
+          <!-- Card 5: NCM Showing Offline -->
           <div class="tech-card card-network" data-keywords="netcloud offline cradlepoint status maintenance network down outage">
             <div class="card-top">
               <div class="card-name-group">
@@ -975,7 +1061,7 @@
             </div>
           </div>
 
-          <!-- Card 8: Not Tracking on Versaterm / CAD -->
+          <!-- Card 6: Not Tracking (Versaterm) -->
           <div class="tech-card card-network" data-keywords="versaterm cad dispatch avl not tracking map location coordinates gps">
             <div class="card-top">
               <div class="card-name-group">
@@ -997,7 +1083,7 @@
             </div>
           </div>
 
-          <!-- Card 9: Location Services / AVL Stuck -->
+          <!-- Card 7: Stuck Location (iPad Map) -->
           <div class="tech-card card-network" data-keywords="tablet command location stuck avl greyed out location services precise allow map cursor">
             <div class="card-top">
               <div class="card-name-group">
@@ -1019,7 +1105,7 @@
             </div>
           </div>
 
-          <!-- Card 10: IT Hardware & Spares -->
+          <!-- Card 8: Need IT Spares / Protectors -->
           <div class="tech-card card-network" data-keywords="screen protectors mounts chargers spares cables styluses stylus ipad accessories stylus">
             <div class="card-top">
               <div class="card-name-group">
@@ -1041,7 +1127,7 @@
             </div>
           </div>
 
-          <!-- Card 11: Passwords & Logins -->
+          <!-- Card 9: Logins & WiFi Passwords -->
           <div class="tech-card card-network" data-keywords="passwords logins credentials active directory wifi tablet command woodsidefire target solutions active911 lockouts reset vaultwarden bitwarden keys vault">
             <div class="card-top">
               <div class="card-name-group">
@@ -1101,10 +1187,61 @@
                   <td><span class="mono-val">WFPD-SCENE</span></td>
                   <td>5 GHz only</td>
                   <td><span class="mono-val">10.7.99.0/24</span></td>
-                  <td>Rig-to-rig mesh. Activates automatically if cellular+Starlink fail.</td>
+                  <td>Rig-to-rig mesh. Activates automatically if cellular fails.</td>
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <!-- ── WI-FI QR CODE GENERATOR PANEL ── -->
+        <div class="panel qr-generator-panel">
+          <div class="console-table-header" style="border-bottom: none; padding-bottom: 8px;">
+            <div class="console-table-title" style="display: flex; align-items: center; gap: 8px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><rect x="7" y="7" width="3" height="3"></rect><rect x="14" y="7" width="3" height="3"></rect><rect x="7" y="14" width="3" height="3"></rect><path d="M14 14h3v3h-3z"></path></svg>
+              Apparatus Wi-Fi QR Generator
+            </div>
+          </div>
+          
+          <div style="padding: 0 20px 20px 20px;">
+            <div class="qr-layout">
+              <div class="qr-inputs">
+                <p class="qr-desc">Select an apparatus and enter the WPA security key from Vaultwarden to generate an instant connection QR code. Scan this with an iPhone or iPad camera to join the secure Ops network without typing.</p>
+                
+                <div class="qr-field">
+                  <label for="qrUnit">Select Apparatus Unit</label>
+                  <select id="qrUnit" class="qr-select" onchange="updateWifiQr()">
+                    <option value="E7">Engine 7 (SSID: WFPD-E7)</option>
+                    <option value="E19">Engine 19 (SSID: WFPD-E19)</option>
+                    <option value="E107">Engine 107 (SSID: WFPD-E107)</option>
+                    <option value="E109">Engine 109 (SSID: WFPD-E109)</option>
+                    <option value="T7">Truck 7 (SSID: WFPD-T7)</option>
+                    <option value="R7">Rescue 7 (SSID: WFPD-R7)</option>
+                    <option value="M7">Medic 7 (SSID: WFPD-M7)</option>
+                    <option value="BC2">Battalion 2 (SSID: WFPD-BC2)</option>
+                  </select>
+                </div>
+                
+                <div class="qr-field">
+                  <label for="qrPass">Enter Ops Wi-Fi Password</label>
+                  <div class="pass-input-wrapper">
+                    <input type="password" id="qrPass" class="qr-input" placeholder="Enter WPA key from Vaultwarden..." onkeyup="updateWifiQr()">
+                    <button type="button" class="pass-toggle-btn" onclick="togglePassVisibility()">Show</button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="qr-display">
+                <div id="qrPlaceholder" class="qr-display-placeholder">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><rect x="7" y="7" width="3" height="3"></rect><rect x="14" y="7" width="3" height="3"></rect><rect x="7" y="14" width="3" height="3"></rect><path d="M14 14h3v3h-3z"></path></svg>
+                  <p>Enter WPA password to generate QR code.</p>
+                </div>
+                <div id="qrCanvasWrapper" style="display: none;">
+                  <canvas id="wifiQr"></canvas>
+                  <p class="qr-instruction">Scan with iPad/iPhone camera to connect.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1130,7 +1267,10 @@
 
   </div>
 
-  <!-- JavaScript Filter Logic -->
+  <!-- QRious QR Code Generator Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+  <!-- JavaScript Filter & QR Logic -->
   <script>
     function filterCards() {
       const searchInput = document.getElementById("searchBox").value.toLowerCase();
@@ -1167,6 +1307,45 @@
         }
       });
     });
+
+    // Password Visibility Toggle
+    function togglePassVisibility() {
+      const passField = document.getElementById("qrPass");
+      const btn = document.querySelector(".pass-toggle-btn");
+      if (passField.type === "password") {
+        passField.type = "text";
+        btn.textContent = "Hide";
+      } else {
+        passField.type = "password";
+        btn.textContent = "Show";
+      }
+    }
+
+    // Wi-Fi QR Code Generation Logic
+    function updateWifiQr() {
+      const unit = document.getElementById("qrUnit").value;
+      const pass = document.getElementById("qrPass").value;
+      const ssid = "WFPD-" + unit;
+      
+      // Wi-Fi standard connection text
+      const qrText = `WIFI:S:${ssid};T:WPA;P:${pass};H:false;;`;
+      
+      if (pass.length > 0) {
+        document.getElementById("qrCanvasWrapper").style.display = "block";
+        document.getElementById("qrPlaceholder").style.display = "none";
+        
+        new QRious({
+          element: document.getElementById("wifiQr"),
+          value: qrText,
+          size: 160,
+          background: '#ffffff',
+          foreground: '#1B2A4A'
+        });
+      } else {
+        document.getElementById("qrCanvasWrapper").style.display = "none";
+        document.getElementById("qrPlaceholder").style.display = "block";
+      }
+    }
   </script>
 </body>
 </html>
