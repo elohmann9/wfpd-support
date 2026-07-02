@@ -679,6 +679,7 @@
     /* ── WI-FI QR CODE GENERATOR PANEL ── */
     .qr-generator-panel {
       margin-top: 10px;
+      display: none; /* Hidden by default, visible in admin mode */
     }
 
     .qr-layout {
@@ -1539,6 +1540,17 @@
         document.body.classList.remove("print-card-only");
       }, 1000);
     }
+
+    // Check for admin access key to reveal the card generator panel
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('admin') === 'true') {
+        const qrPanel = document.querySelector('.qr-generator-panel');
+        if (qrPanel) {
+          qrPanel.style.display = 'block';
+        }
+      }
+    });
   </script>
 </body>
 </html>
