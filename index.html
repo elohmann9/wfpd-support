@@ -1421,10 +1421,13 @@
               </div>
               
               <div class="qr-display">
-                <div id="qrCanvasWrapper" style="position: relative; background: #F7F4EE; border: 2px solid #C9A253; padding: 12px; line-height: 0;">
-                  <img id="wifiQrImg" src="qr/E7.png" style="display: block; width: 160px; height: 160px;" alt="Wi-Fi QR Code">
-                  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; background: #F7F4EE; border: 1.5px solid #C9A253; display: flex; align-items: center; justify-content: center;">
+                <div id="qrCanvasWrapper" style="position: relative; background: #F7F4EE; border: 2px solid #C9A253; padding: 12px; line-height: 0; min-height: 184px; min-width: 184px; display: flex; align-items: center; justify-content: center;">
+                  <img id="wifiQrImg" src="qr/E7.png" style="display: block; width: 160px; height: 160px;" alt="Wi-Fi QR Code" onerror="handleQrError(this, 'wifiQrImgOverlay')">
+                  <div id="wifiQrImgOverlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; background: #F7F4EE; border: 1.5px solid #C9A253; display: flex; align-items: center; justify-content: center;">
                     <img src="logo.png" style="width: 24px; height: auto;" alt="Logo">
+                  </div>
+                  <div id="wifiQrImgMissing" style="display: none; padding: 10px; text-align: center; color: #8B1E1E; font-size: 11px; font-weight: 700; font-family: 'DM Sans', sans-serif;">
+                    QR Image Pending<br><span style="font-size: 9px; font-weight: 500; color: #777;">Upload qr/[UNIT].png</span>
                   </div>
                 </div>
                 <p id="qrInstruction" class="qr-instruction" style="margin-top: 10px; font-size: 11px; font-weight: 700; color: var(--primary);">Scan with iPad/iPhone camera to connect.</p>
@@ -1470,10 +1473,13 @@
       <!-- Body -->
       <div class="print-card-body">
         <p class="print-card-body-instruction">Point your camera at the code</p>
-        <div class="print-card-qr-frame">
-          <img id="wifiQrPrintImg" class="print-card-qr-canvas" alt="QR Code">
-          <div class="print-card-qr-logo-box">
+        <div class="print-card-qr-frame" style="min-height: 438px; min-width: 438px; display: flex; align-items: center; justify-content: center; position: relative;">
+          <img id="wifiQrPrintImg" class="print-card-qr-canvas" alt="QR Code" onerror="handleQrError(this, 'wifiQrPrintImgOverlay')">
+          <div id="wifiQrPrintImgOverlay" class="print-card-qr-logo-box">
             <img src="logo.png" class="print-card-qr-logo" alt="WFPD Logo">
+          </div>
+          <div id="wifiQrPrintImgMissing" style="display: none; padding: 20px; text-align: center; color: #8B1E1E; font-size: 16px; font-weight: 700; font-family: 'DM Sans', sans-serif;">
+            QR CODE PENDING<br><span style="font-size: 12px; font-weight: 500; color: #777;">Please upload qr/[UNIT].png to repository</span>
           </div>
         </div>
         
@@ -1536,6 +1542,10 @@
       const ssid = "WFPD-" + unit + "-Ops"; // Matches "WFPD-E7-Ops" standard
       const qrPath = "qr/" + unit + ".png";
       
+      // Reset error states before trying to load new image
+      resetQrDisplay("wifiQrImg", "wifiQrImgOverlay");
+      resetQrDisplay("wifiQrPrintImg", "wifiQrPrintImgOverlay");
+      
       // Update screen card image source
       const wifiQrImg = document.getElementById("wifiQrImg");
       if (wifiQrImg) {
@@ -1552,6 +1562,37 @@
       const printCardSsid = document.getElementById("printCardSsid");
       if (printCardSsid) {
         printCardSsid.textContent = ssid;
+      }
+    }
+
+    // Handles images failing to load (404/not yet uploaded)
+    function handleQrError(imgEl, overlayId) {
+      imgEl.style.display = "none";
+      const overlayEl = document.getElementById(overlayId);
+      if (overlayEl) {
+        overlayEl.style.display = "none";
+      }
+      
+      const missingId = imgEl.id + "Missing";
+      const missingEl = document.getElementById(missingId);
+      if (missingEl) {
+        missingEl.style.display = "block";
+      }
+    }
+
+    // Resets element visibilities to load a new image path
+    function resetQrDisplay(imgId, overlayId) {
+      const imgEl = document.getElementById(imgId);
+      if (imgEl) {
+        imgEl.style.display = "block";
+      }
+      const overlayEl = document.getElementById(overlayId);
+      if (overlayEl) {
+        overlayEl.style.display = "flex";
+      }
+      const missingEl = document.getElementById(imgId + "Missing");
+      if (missingEl) {
+        missingEl.style.display = "none";
       }
     }
 
