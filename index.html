@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Deployment trigger: 1 -->
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>WFPD Apparatus IT & Radio Support Console</title>
   <!-- Load fonts to match the WFPD Radio Manual -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,10 +11,10 @@
   <style>
     :root {
       /* Exact Woodside Color Palette */
-      --primary: #1B2A4A;     /* Navy Blue (Body outer background) */
-      --bg: #F5F0E6;          /* Warm Cream (Dashboard inner background) */
-      --maroon: #8B1E2D;      /* Maroon/Crimson (Header background) */
-      --gold: #C9A54E;        /* Gold/Ochre (Accents & borders) */
+      --primary: #1B2A4A;     /* Navy Blue */
+      --bg: #F5F0E6;          /* Warm Cream */
+      --maroon: #8B1E2D;      /* Maroon/Crimson Red */
+      --gold: #C9A54E;        /* Gold/Ochre */
       
       /* UI Core Variables */
       --card-bg: #ffffff;
@@ -39,48 +38,23 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent; /* Disable default tap highlight on iOS */
     }
 
     body {
-      background: var(--primary); /* Navy Blue body background to frame the console */
+      background: var(--bg); /* Full width cream background */
       color: var(--text-body);
       font-family: 'DM Sans', system-ui, sans-serif;
       font-size: 14px;
       line-height: 1.6;
-      padding: 10px 0 60px 0;
-    }
-
-    @media (min-width: 768px) {
-      body {
-        padding: 30px 0 80px 0;
-      }
-    }
-
-    /* ── DASHBOARD CONSOLE WRAPPER ── */
-    .console-wrapper {
-      max-width: 1500px;
-      width: 96%;
-      margin: 0 auto;
-      background: var(--bg);
-      border: 3px solid var(--gold);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
-    }
-
-    @media (max-width: 767px) {
-      .console-wrapper {
-        margin: 10px;
-        border-width: 2px;
-        border-radius: 8px;
-      }
+      padding-bottom: 60px;
     }
 
     /* ── TOP BAR (HEADER) ── */
     header {
       background: var(--maroon); /* Woodside Maroon */
-      border-bottom: 3px solid var(--gold);
-      padding: 18px 24px;
+      border-bottom: 4px solid var(--gold); /* Gold border line */
+      padding: 16px 20px;
       color: white;
       display: flex;
       flex-direction: column;
@@ -92,6 +66,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+        padding: 16px 40px;
       }
     }
 
@@ -102,7 +77,7 @@
     }
 
     .header-logo-img {
-      height: 48px;
+      height: 46px;
       width: auto;
       object-fit: contain;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
@@ -154,7 +129,7 @@
 
     .search-input {
       width: 100%;
-      height: 36px;
+      height: 38px;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 6px;
@@ -216,24 +191,26 @@
 
     /* ── DASHBOARD CONTAINER ── */
     .dashboard-container {
-      padding: 16px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
     }
 
     @media (min-width: 768px) {
       .dashboard-container {
-        padding: 24px;
+        padding: 40px 30px;
       }
     }
 
     .dashboard-layout {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 20px;
+      gap: 24px;
     }
 
     @media (min-width: 992px) {
       .dashboard-layout {
-        grid-template-columns: 280px 1fr;
+        grid-template-columns: 300px 1fr;
         align-items: start;
       }
     }
@@ -265,7 +242,7 @@
     .sidebar {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 24px;
     }
 
     .info-stat-list {
@@ -346,13 +323,13 @@
     .main-console {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 28px;
     }
 
     /* ── SECTION HEADER ── */
     .console-section-title {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 700;
       color: var(--primary);
       margin-bottom: 4px;
@@ -396,10 +373,17 @@
       box-shadow: 0 1px 3px rgba(27, 42, 74, 0.02);
     }
 
-    .tech-card:hover {
-      border-color: var(--gold);
-      box-shadow: 0 4px 14px rgba(27, 42, 74, 0.06);
-      transform: translateY(-1px);
+    /* Active tap state feedback for mobile touch screens */
+    .tech-card:active {
+      background: #faf8f5;
+    }
+
+    @media (min-width: 768px) {
+      .tech-card:hover {
+        border-color: var(--gold);
+        box-shadow: 0 4px 14px rgba(27, 42, 74, 0.06);
+        transform: translateY(-1px);
+      }
     }
 
     /* System specific left-border highlights */
@@ -411,6 +395,12 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 8px;
+    }
+
+    .card-name-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .card-name {
@@ -500,6 +490,49 @@
       display: flex;
       align-items: center;
       gap: 6px;
+    }
+
+    /* ── MOBILE CARET ACCORDION INDICATOR ── */
+    .caret-icon {
+      display: none;
+      font-size: 11px;
+      color: var(--text-muted);
+      transition: transform 0.25s ease;
+      background: #eee6d8;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    /* Mobile Accordion Styles */
+    @media (max-width: 767px) {
+      .caret-icon {
+        display: inline-flex;
+      }
+      
+      .tech-card {
+        cursor: pointer;
+        user-select: none;
+      }
+
+      /* Collapsed by default on mobile devices */
+      .tech-card .card-body-title,
+      .tech-card .card-list,
+      .tech-card .card-footer {
+        display: none;
+        margin-top: 6px;
+      }
+
+      /* Expanded State */
+      .tech-card.is-expanded .card-body-title,
+      .tech-card.is-expanded .card-list,
+      .tech-card.is-expanded .card-footer {
+        display: block;
+      }
     }
 
     /* ── NETWORK REFERENCE CONSOLE ── */
@@ -603,27 +636,44 @@
       margin-top: 10px;
       flex-wrap: wrap;
       justify-content: center;
+      width: 100%;
     }
 
     .action-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       background: transparent;
       color: white;
       border: 1.5px solid var(--gold);
-      padding: 10px 22px;
+      padding: 12px 24px;
       border-radius: 6px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 13.5px;
       transition: all 0.2s;
+      flex: 1;
+      min-width: 220px;
     }
 
-    .action-btn:hover {
-      background: var(--gold);
-      color: var(--primary);
-      transform: translateY(-1px);
+    .action-btn:active {
+      background: rgba(201, 165, 78, 0.15);
+    }
+
+    @media (min-width: 768px) {
+      .action-buttons {
+        width: auto;
+      }
+      .action-btn {
+        flex: none;
+        min-width: 0;
+      }
+      .action-btn:hover {
+        background: var(--gold);
+        color: var(--primary);
+        transform: translateY(-1px);
+      }
     }
 
     /* ── PRINT STYLES ── */
@@ -632,13 +682,7 @@
         background: white;
         color: black;
         font-size: 12px;
-        padding: 0;
-      }
-      .console-wrapper {
-        border: none;
-        box-shadow: none;
-        margin: 0;
-        border-radius: 0;
+        padding-bottom: 0;
       }
       header, .search-wrapper, .status-badge, .action-panel, .sidebar .panel:nth-child(1) {
         display: none !important;
@@ -680,285 +724,299 @@
 </head>
 <body>
 
-  <!-- CONSOLE DECK -->
-  <div class="console-wrapper">
-
-    <!-- TOP BAR CONSOLE HEADER -->
-    <header>
-      <div class="header-left">
-        <img src="logo.jpg" alt="WFPD Logo" class="header-logo-img">
-        <div class="header-title-group">
-          <p>WOODSIDE FIRE PROTECTION DISTRICT</p>
-          <h1>Apparatus IT & Radio Support Console</h1>
-        </div>
+  <!-- TOP BAR CONSOLE HEADER -->
+  <header>
+    <div class="header-left">
+      <img src="logo.jpg" alt="WFPD Logo" class="header-logo-img">
+      <div class="header-title-group">
+        <p>WOODSIDE FIRE PROTECTION DISTRICT</p>
+        <h1>Apparatus IT & Radio Support Console</h1>
       </div>
+    </div>
 
-      <!-- Live Search & Status -->
-      <div class="header-right">
-        <div class="search-wrapper">
-          <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <input type="text" id="searchBox" class="search-input" placeholder="Search system symptoms..." onkeyup="filterCards()">
-        </div>
-        <div class="status-badge">
-          <span class="status-dot"></span>
-          ● STATUS ONLINE
-        </div>
+    <!-- Live Search & Status -->
+    <div class="header-right">
+      <div class="search-wrapper">
+        <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input type="text" id="searchBox" class="search-input" placeholder="Search system symptoms..." onkeyup="filterCards()">
       </div>
-    </header>
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        ● STATUS ONLINE
+      </div>
+    </div>
+  </header>
 
-    <!-- DASHBOARD CONTAINER -->
-    <div class="dashboard-container">
+  <!-- DASHBOARD CONTAINER -->
+  <div class="dashboard-container">
+    
+    <div class="dashboard-layout">
       
-      <div class="dashboard-layout">
+      <!-- LEFT COLUMN: SIDEBAR -->
+      <div class="sidebar">
         
-        <!-- LEFT COLUMN: SIDEBAR -->
-        <div class="sidebar">
+        <!-- Quick Stats Widget -->
+        <div class="panel">
+          <div class="panel-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+            Console Overview
+          </div>
+          <ul class="info-stat-list">
+            <li class="info-stat-item">
+              <span class="info-stat-label">Active Fleet Rigs</span>
+              <span class="info-stat-val">11 Rigs</span>
+            </li>
+            <li class="info-stat-item">
+              <span class="info-stat-label">Primary Freq Band</span>
+              <span class="info-stat-val">VHF P25</span>
+            </li>
+            <li class="info-stat-item">
+              <span class="info-stat-label">Last Policy Push</span>
+              <span class="info-stat-val">June 2026</span>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Lanes Widget -->
+        <div class="panel">
+          <div class="panel-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            Operational Scope
+          </div>
           
-          <!-- Quick Stats Widget -->
-          <div class="panel">
-            <div class="panel-title">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
-              Console Overview
-            </div>
-            <ul class="info-stat-list">
-              <li class="info-stat-item">
-                <span class="info-stat-label">Active Fleet Rigs</span>
-                <span class="info-stat-val">11 Units</span>
-              </li>
-              <li class="info-stat-item">
-                <span class="info-stat-label">Primary Freq Band</span>
-                <span class="info-stat-val">VHF P25</span>
-              </li>
-              <li class="info-stat-item">
-                <span class="info-stat-label">Last Policy Push</span>
-                <span class="info-stat-val">June 2026</span>
-              </li>
+          <!-- In Your Lane -->
+          <div class="lane-box lane-box-in">
+            <div class="lane-box-title">In Your Lane</div>
+            <ul class="lane-box-list">
+              <li>Confirm physical power connections and harness fuses.</li>
+              <li>Perform clean system reboots.</li>
+              <li>Read & backup codeplugs in read-only mode.</li>
+              <li>Inspect cables for pinches/damage.</li>
             </ul>
           </div>
           
-          <!-- Lanes Widget -->
-          <div class="panel">
-            <div class="panel-title">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              Operational Scope
+          <!-- Escalate to Erik -->
+          <div class="lane-box lane-box-out">
+            <div class="lane-box-title">Escalate to Erik</div>
+            <ul class="lane-box-list">
+              <li>Writing/uploading config updates to any radio unit.</li>
+              <li>Adding or modifying frequencies/talkgroups in CPS.</li>
+              <li>Flashing system firmware (M150, APX 8500).</li>
+              <li>Any coordination with SMC OES or vendor support.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: MAIN CONSOLE -->
+      <div class="main-console">
+        
+        <div>
+          <h2 class="console-section-title">IT & Radio Quick Reference Console</h2>
+          <p class="console-section-desc">Locate symptoms below to inspect recommended actions and escalation triggers.</p>
+        </div>
+
+        <!-- ── TECHNICAL CARDS GRID ── -->
+        <div class="card-grid" id="cardGrid">
+          
+          <!-- Card 1: BK M150 Green LED -->
+          <div class="tech-card card-radio" data-keywords="bk m150 steady green led no display radio boot reflash firmware">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">Steady Green LED</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-radio">BK M150</span>
             </div>
-            
-            <!-- In Your Lane -->
-            <div class="lane-box lane-box-in">
-              <div class="lane-box-title">In Your Lane</div>
-              <ul class="lane-box-list">
-                <li>Confirm physical power connections and harness fuses.</li>
-                <li>Perform clean system reboots.</li>
-                <li>Read & backup codeplugs in read-only mode.</li>
-                <li>Inspect cables for pinches/damage.</li>
-              </ul>
+            <div class="card-symptom-box">LED is solid green, screen is completely blank, and controls do not respond.</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>The transceiver is locked in boot. Needs firmware reflash.</li>
+              <li>Plug programming cable into the <code>transceiver body</code> (not head).</li>
+              <li><strong>Critical</strong>: Flash firmware to transceiver AND both control heads. Flashing only one will fail.</li>
+            </ul>
+            <div class="card-footer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Escalate: Reflash requires binary files.
             </div>
-            
-            <!-- Escalate to Erik -->
-            <div class="lane-box lane-box-out">
-              <div class="lane-box-title">Escalate to Erik</div>
-              <ul class="lane-box-list">
-                <li>Writing/uploading config updates to any radio unit.</li>
-                <li>Adding or modifying frequencies/talkgroups in CPS.</li>
-                <li>Flashing system firmware (M150, APX 8500).</li>
-                <li>Any coordination with SMC OES or vendor support.</li>
-              </ul>
+          </div>
+
+          <!-- Card 2: APX 8500 CHID Error -->
+          <div class="tech-card card-radio" data-keywords="motorola apx 8500 chid error control head id communication cable port">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">CHID # ERROR</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-radio">APX 8500</span>
+            </div>
+            <div class="card-symptom-box">Radio screen locks out displaying "CHID # ERROR".</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>Check programming cable—must connect to the <code>receiver body</code>, never the control head mic port.</li>
+              <li>Verify the head-to-body link cable is fully seated on both ends.</li>
+              <li>New units showing this likely have a blank config codeplug.</li>
+            </ul>
+            <div class="card-footer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Escalate: Required if connections are OK.
+            </div>
+          </div>
+
+          <!-- Card 3: APX 8500 Extra CH -->
+          <div class="tech-card card-radio" data-keywords="motorola apx 8500 extra ch display dual head cps write control">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">Extra CH on Display</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-radio">APX 8500</span>
+            </div>
+            <div class="card-symptom-box">Dual-head unit shows "Extra CH" or screen sync issues.</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>Dual-head configuration must be active in <code>CPS R38</code> profile before writing to the radio.</li>
+              <li>If broken, change setting in offline CPS profile first, then re-write the radio.</li>
+            </ul>
+            <div class="card-footer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Escalate: All writes require sign-off.
+            </div>
+          </div>
+
+          <!-- Card 4: Starlink Offline -->
+          <div class="tech-card card-network" data-keywords="starlink offline internet wan bypass passthrough ethernet adapter cradlepoint">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">Starlink Offline</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-network">Starlink</span>
+            </div>
+            <div class="card-symptom-box">Rig internet is down; cell coverage is poor and Starlink status is offline in NCM.</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>Confirm Starlink router power is active (check vehicle inverter).</li>
+              <li>Verify <code>Bypass Mode</code> is toggled on in the Starlink App.</li>
+              <li>Check ethernet adapter seats in both router and Cradlepoint WAN port.</li>
+            </ul>
+            <div class="card-footer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Escalate: If hardware has power but fails.
+            </div>
+          </div>
+
+          <!-- Card 5: Tablet Command Disconnect -->
+          <div class="tech-card card-network" data-keywords="tablet command ipad wifi connection ssid ops guest dhcp static reservation scene">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">CAD Tablet Offline</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-network">iPad / WiFi</span>
+            </div>
+            <div class="card-symptom-box">Tablet Command iPad does not update dispatch logs.</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>Verify iPad is on the primary network: <code>WFPD-[UNIT]</code>.</li>
+              <li>Avoid the <code>-GUEST</code> network, as guest rules block CAD sync routing.</li>
+              <li>Renew lease. The IP must resolve to <code>10.7.X.50</code> (static DHCP).</li>
+            </ul>
+            <div class="card-footer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Escalate: If IP is correct but CAD fails.
+            </div>
+          </div>
+
+          <!-- Card 6: All Fleet Offline -->
+          <div class="tech-card card-network" data-keywords="netcloud offline cradlepoint status maintenance network down outage">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">NCM Showing Offline</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-network">NetCloud</span>
+            </div>
+            <div class="card-symptom-box">All district apparatus show offline in NCM simultaneously.</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>Visit <a href="https://status.cradlepoint.com/" target="_blank" style="color:var(--blue); font-weight: 600;">status.cradlepoint.com</a> to check system status.</li>
+              <li>Cradlepoint cloud portal maintenance regularly flags all routers offline even when vehicle internet is working fine.</li>
+            </ul>
+            <div class="card-footer" style="color:var(--primary)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              Notice: Do not reset hardware. Wait.
             </div>
           </div>
 
         </div>
 
-        <!-- RIGHT COLUMN: MAIN CONSOLE -->
-        <div class="main-console">
-          
-          <div>
-            <h2 class="console-section-title">IT & Radio Quick Reference Console</h2>
-            <p class="console-section-desc">Locate symptoms below to inspect recommended actions and escalation triggers.</p>
+        <!-- ── SSID & NETWORK REFERENCE TABLE PANEL ── -->
+        <div class="panel console-table-panel">
+          <div class="console-table-header">
+            <div class="console-table-title">Apparatus Network Config Reference</div>
           </div>
-
-          <!-- ── TECHNICAL CARDS GRID ── -->
-          <div class="card-grid" id="cardGrid">
-            
-            <!-- Card 1: BK M150 Green LED -->
-            <div class="tech-card card-radio" data-keywords="bk m150 steady green led no display radio boot reflash firmware">
-              <div class="card-top">
-                <h3 class="card-name">Steady Green LED</h3>
-                <span class="card-tag tag-radio">BK M150</span>
-              </div>
-              <div class="card-symptom-box">LED is solid green, screen is completely blank, and controls do not respond.</div>
-              <div class="card-body-title">Correction Action:</div>
-              <ul class="card-list">
-                <li>The transceiver is locked in boot. Needs firmware reflash.</li>
-                <li>Plug programming cable into the <code>transceiver body</code> (not head).</li>
-                <li><strong>Critical</strong>: Flash firmware to transceiver AND both control heads. Flashing only one will fail.</li>
-              </ul>
-              <div class="card-footer">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                Escalate: Reflash requires binary files.
-              </div>
-            </div>
-
-            <!-- Card 2: APX 8500 CHID Error -->
-            <div class="tech-card card-radio" data-keywords="motorola apx 8500 chid error control head id communication cable port">
-              <div class="card-top">
-                <h3 class="card-name">CHID # ERROR</h3>
-                <span class="card-tag tag-radio">APX 8500</span>
-              </div>
-              <div class="card-symptom-box">Radio screen locks out displaying "CHID # ERROR".</div>
-              <div class="card-body-title">Correction Action:</div>
-              <ul class="card-list">
-                <li>Check programming cable—must connect to the <code>receiver body</code>, never the control head mic port.</li>
-                <li>Verify the head-to-body link cable is fully seated on both ends.</li>
-                <li>New units showing this likely have a blank config codeplug.</li>
-              </ul>
-              <div class="card-footer">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                Escalate: Required if connections are OK.
-              </div>
-            </div>
-
-            <!-- Card 3: APX 8500 Extra CH -->
-            <div class="tech-card card-radio" data-keywords="motorola apx 8500 extra ch display dual head cps write control">
-              <div class="card-top">
-                <h3 class="card-name">Extra CH on Display</h3>
-                <span class="card-tag tag-radio">APX 8500</span>
-              </div>
-              <div class="card-symptom-box">Dual-head unit shows "Extra CH" or screen sync issues.</div>
-              <div class="card-body-title">Correction Action:</div>
-              <ul class="card-list">
-                <li>Dual-head configuration must be active in <code>CPS R38</code> profile before writing to the radio.</li>
-                <li>If broken, change setting in offline CPS profile first, then re-write the radio.</li>
-              </ul>
-              <div class="card-footer">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                Escalate: All writes require sign-off.
-              </div>
-            </div>
-
-            <!-- Card 4: Starlink Offline -->
-            <div class="tech-card card-network" data-keywords="starlink offline internet wan bypass passthrough ethernet adapter cradlepoint">
-              <div class="card-top">
-                <h3 class="card-name">Starlink Offline</h3>
-                <span class="card-tag tag-network">Starlink</span>
-              </div>
-              <div class="card-symptom-box">Rig internet is down; cell coverage is poor and Starlink status is offline in NCM.</div>
-              <div class="card-body-title">Correction Action:</div>
-              <ul class="card-list">
-                <li>Confirm Starlink router power is active (check vehicle inverter).</li>
-                <li>Verify <code>Bypass Mode</code> is toggled on in the Starlink App.</li>
-                <li>Check ethernet adapter seats in both router and Cradlepoint WAN port.</li>
-              </ul>
-              <div class="card-footer">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                Escalate: If hardware has power but fails.
-              </div>
-            </div>
-
-            <!-- Card 5: Tablet Command Disconnect -->
-            <div class="tech-card card-network" data-keywords="tablet command ipad wifi connection ssid ops guest dhcp static reservation scene">
-              <div class="card-top">
-                <h3 class="card-name">CAD Tablet Offline</h3>
-                <span class="card-tag tag-network">iPad / WiFi</span>
-              </div>
-              <div class="card-symptom-box">Tablet Command iPad does not update dispatch logs.</div>
-              <div class="card-body-title">Correction Action:</div>
-              <ul class="card-list">
-                <li>Verify iPad is on the primary network: <code>WFPD-[UNIT]</code>.</li>
-                <li>Avoid the <code>-GUEST</code> network, as guest rules block CAD sync routing.</li>
-                <li>Renew lease. The IP must resolve to <code>10.7.X.50</code> (static DHCP).</li>
-              </ul>
-              <div class="card-footer">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                Escalate: If IP is correct but CAD fails.
-              </div>
-            </div>
-
-            <!-- Card 6: All Fleet Offline -->
-            <div class="tech-card card-network" data-keywords="netcloud offline cradlepoint status maintenance network down outage">
-              <div class="card-top">
-                <h3 class="card-name">NCM Showing Offline</h3>
-                <span class="card-tag tag-network">NetCloud</span>
-              </div>
-              <div class="card-symptom-box">All district apparatus show offline in NCM simultaneously.</div>
-              <div class="card-body-title">Correction Action:</div>
-              <ul class="card-list">
-                <li>Visit <a href="https://status.cradlepoint.com/" target="_blank" style="color:var(--blue); font-weight: 600;">status.cradlepoint.com</a> to check system status.</li>
-                <li>Cradlepoint cloud portal maintenance regularly flags all routers offline even when vehicle internet is working fine.</li>
-              </ul>
-              <div class="card-footer" style="color:var(--primary)">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                Notice: Do not reset hardware. Wait.
-              </div>
-            </div>
-
+          <div class="table-responsive">
+            <table class="console-table">
+              <thead>
+                <tr>
+                  <th>VLAN Network</th>
+                  <th>SSID Name</th>
+                  <th>Band</th>
+                  <th>IP Subnet Range</th>
+                  <th>Default Routing Rules</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Operations (VLAN 1)</strong></td>
+                  <td><span class="mono-val">WFPD-[UNIT]</span></td>
+                  <td>5 GHz</td>
+                  <td><span class="mono-val">10.7.X.0/24</span></td>
+                  <td>CAD iPads, routing. Static IP reservation at <span class="mono-val">.50</span>.</td>
+                </tr>
+                <tr>
+                  <td><strong>Guest Network (VLAN 10)</strong></td>
+                  <td><span class="mono-val">WFPD-[UNIT]-GUEST</span></td>
+                  <td>2.4 GHz</td>
+                  <td><span class="mono-val">10.8.X.0/24</span></td>
+                  <td>Internet-only. Client isolation active. Private subnets blocked.</td>
+                </tr>
+                <tr>
+                  <td><strong>Scene Mesh (VLAN 99)</strong></td>
+                  <td><span class="mono-val">WFPD-SCENE</span></td>
+                  <td>5 GHz only</td>
+                  <td><span class="mono-val">10.7.99.0/24</span></td>
+                  <td>Rig-to-rig mesh. Activates automatically if cellular+Starlink fail.</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+        </div>
 
-          <!-- ── SSID & NETWORK REFERENCE TABLE PANEL ── -->
-          <div class="panel console-table-panel">
-            <div class="console-table-header">
-              <div class="console-table-title">Apparatus Network Config Reference</div>
-            </div>
-            <div class="table-responsive">
-              <table class="console-table">
-                <thead>
-                  <tr>
-                    <th>VLAN Network</th>
-                    <th>SSID Name</th>
-                    <th>Band</th>
-                    <th>IP Subnet Range</th>
-                    <th>Default Routing Rules</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Operations (VLAN 1)</strong></td>
-                    <td><span class="mono-val">WFPD-[UNIT]</span></td>
-                    <td>5 GHz</td>
-                    <td><span class="mono-val">10.7.X.0/24</span></td>
-                    <td>CAD iPads, routing. Static IP reservation at <span class="mono-val">.50</span>.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Guest Network (VLAN 10)</strong></td>
-                    <td><span class="mono-val">WFPD-[UNIT]-GUEST</span></td>
-                    <td>2.4 GHz</td>
-                    <td><span class="mono-val">10.8.X.0/24</span></td>
-                    <td>Internet-only. Client isolation active. Private subnets blocked.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Scene Mesh (VLAN 99)</strong></td>
-                    <td><span class="mono-val">WFPD-SCENE</span></td>
-                    <td>5 GHz only</td>
-                    <td><span class="mono-val">10.7.99.0/24</span></td>
-                    <td>Rig-to-rig mesh. Activates automatically if cellular+Starlink fail.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+        <!-- ── DUAL HOTLINE ACTION CARD ── -->
+        <div class="panel action-panel">
+          <h2>Technical Escalation Required?</h2>
+          <p>If troubleshooting steps do not clear the fault, or if the procedure requires IT authorization (writes, flashes, SMC OES interface changes), contact Erik immediately.</p>
+          <div class="action-buttons">
+            <a href="tel:+14157379223" class="action-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              Call Radio & IT Support
+            </a>
+            <a href="mailto:erik@kerchunknetworks.com" class="action-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              Email IT Ticket
+            </a>
           </div>
-
-          <!-- ── DUAL HOTLINE ACTION CARD ── -->
-          <div class="panel action-panel">
-            <h2>Technical Escalation Required?</h2>
-            <p>If troubleshooting steps do not clear the fault, or if the procedure requires IT authorization (writes, flashes, SMC OES interface changes), contact Erik immediately.</p>
-            <div class="action-buttons">
-              <a href="tel:+14157379223" class="action-btn">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                Call Radio & IT Support
-              </a>
-              <a href="mailto:erik@kerchunknetworks.com" class="action-btn">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                Email IT Ticket
-              </a>
-            </div>
-          </div>
-
         </div>
 
       </div>
 
     </div>
+
   </div>
 
   <!-- JavaScript Filter Logic -->
@@ -979,6 +1037,25 @@
         }
       }
     }
+
+    // Mobile Accordion Toggle Script for iPhone & iPad
+    document.querySelectorAll('.tech-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Toggle details only on mobile/tablet viewports (under 768px wide)
+        if (window.innerWidth < 768) {
+          // Prevent collapsing when tapping links, anchor buttons, or code snippets
+          if (e.target.closest('a') || e.target.closest('code') || e.target.closest('.action-btn')) {
+            return;
+          }
+          
+          card.classList.toggle('is-expanded');
+          const caret = card.querySelector('.caret-icon');
+          if (caret) {
+            caret.style.transform = card.classList.contains('is-expanded') ? 'rotate(180deg)' : 'rotate(0deg)';
+          }
+        }
+      });
+    });
   </script>
 </body>
 </html>
