@@ -799,11 +799,101 @@
       display: block;
       margin: 0 auto 10px auto;
     }
-    
-    .qr-instruction {
-      font-size: 11px;
+      /* ── PRINTABLE WIDGET CARD SCREEN & PRINT STYLES ── */
+    .print-card-layout {
+      display: none;
+    }
+
+    .print-card-container {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      background: #F5F0E6; /* Cream background */
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .print-card-header {
+      background: #8B1E2D; /* Maroon header */
+      border-bottom: 4px solid #C9A54E; /* Gold border line */
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .print-card-logo {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .print-card-header-text {
+      text-align: left;
+    }
+
+    .print-card-header-sub {
+      font-size: 8px;
       font-weight: 700;
-      color: var(--primary);
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: 1px;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .print-card-header-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 2px 0 0 0;
+    }
+
+    .print-card-body {
+      padding: 24px 20px;
+    }
+
+    .print-card-body-instruction {
+      font-size: 10px;
+      font-weight: 700;
+      color: #C9A54E; /* Gold */
+      letter-spacing: 1.5px;
+      margin: 0 0 16px 0;
+      text-transform: uppercase;
+    }
+
+    .print-card-qr-frame {
+      display: inline-block;
+      border: 2px solid #C9A54E; /* Gold frame */
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .print-card-footer {
+      padding: 16px 20px 24px 20px;
+    }
+
+    .print-card-footer-sub {
+      font-size: 10px;
+      font-weight: 700;
+      color: #C9A54E; /* Gold */
+      letter-spacing: 1.5px;
+      margin: 0 0 6px 0;
+      text-transform: uppercase;
+    }
+
+    .print-card-footer-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #1B2A4A; /* Navy Blue */
+      margin: 0;
+      font-family: 'IBM Plex Mono', monospace;
     }
 
     /* ── PRINT STYLES ── */
@@ -813,6 +903,31 @@
         color: black;
         font-size: 12px;
         padding-bottom: 0;
+      }
+      body.print-card-only {
+        background: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      body.print-card-only .dashboard-container {
+        display: none !important;
+      }
+      body.print-card-only .print-card-layout {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+      }
+      body.print-card-only .print-card-container {
+        border: none !important;
+        box-shadow: none !important;
+        width: 5in;
+        height: 5.5in;
+        page-break-inside: avoid;
       }
       header, .search-wrapper, .status-badge, .action-panel, .sidebar .panel:nth-child(1), .qr-generator-panel {
         display: none !important;
@@ -1229,6 +1344,9 @@
                     <button type="button" class="pass-toggle-btn" onclick="togglePassVisibility()">Show</button>
                   </div>
                 </div>
+                <div class="qr-field" style="margin-top: 6px;">
+                  <button type="button" id="qrPrintBtn" class="action-btn" onclick="printWifiCard()" style="background: var(--primary); border-color: var(--gold); color: white; display: none; width: 100%; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 700; height: 38px; transition: all 0.2s;">Print Connection Card</button>
+                </div>
               </div>
               
               <div class="qr-display">
@@ -1265,6 +1383,29 @@
 
     </div>
 
+  </div>
+
+  <!-- ── PRINTABLE WIDGET CARD (HIDDEN ON SCREEN, REVEALED FOR PRINT-CARD-ONLY) ── -->
+  <div class="print-card-layout">
+    <div class="print-card-container">
+      <div class="print-card-header">
+        <img src="logo.png" class="print-card-logo" alt="WFPD Logo">
+        <div class="print-card-header-text">
+          <p class="print-card-header-sub">WOODSIDE FIRE PROTECTION DISTRICT</p>
+          <h1 class="print-card-header-title">Scan & Connect</h1>
+        </div>
+      </div>
+      <div class="print-card-body">
+        <p class="print-card-body-instruction">POINT YOUR CAMERA AT THE CODE</p>
+        <div class="print-card-qr-frame">
+          <canvas id="wifiQrPrint"></canvas>
+        </div>
+      </div>
+      <div class="print-card-footer">
+        <p class="print-card-footer-sub">NETWORK</p>
+        <h2 id="printCardSsid" class="print-card-footer-title">WFPD-E7-Ops</h2>
+      </div>
+    </div>
   </div>
 
   <!-- QRious QR Code Generator Library -->
@@ -1325,26 +1466,78 @@
     function updateWifiQr() {
       const unit = document.getElementById("qrUnit").value;
       const pass = document.getElementById("qrPass").value;
-      const ssid = "WFPD-" + unit;
+      const ssid = "WFPD-" + unit + "-Ops"; // Matches "WFPD-E7-Ops" standard
       
-      // Wi-Fi standard connection text
       const qrText = `WIFI:S:${ssid};T:WPA;P:${pass};H:false;;`;
       
       if (pass.length > 0) {
         document.getElementById("qrCanvasWrapper").style.display = "block";
         document.getElementById("qrPlaceholder").style.display = "none";
+        document.getElementById("qrPrintBtn").style.display = "block"; // Show print button!
         
-        new QRious({
-          element: document.getElementById("wifiQr"),
-          value: qrText,
-          size: 160,
-          background: '#ffffff',
-          foreground: '#1B2A4A'
-        });
+        // Generate screen-size QR code (160px size, logo is 36px)
+        generateQrCodeCanvas("wifiQr", qrText, 160, 36);
+        
+        // Generate print-size QR code (300px size, logo is 64px)
+        generateQrCodeCanvas("wifiQrPrint", qrText, 300, 64);
+        
+        // Update SSID label on print card
+        document.getElementById("printCardSsid").textContent = ssid;
       } else {
         document.getElementById("qrCanvasWrapper").style.display = "none";
         document.getElementById("qrPlaceholder").style.display = "block";
+        document.getElementById("qrPrintBtn").style.display = "none"; // Hide print button!
       }
+    }
+
+    // Canvas drawing function that overlays the district emblem with a gold border
+    function generateQrCodeCanvas(canvasId, qrText, size, logoSize) {
+      const canvas = document.getElementById(canvasId);
+      
+      new QRious({
+        element: canvas,
+        value: qrText,
+        size: size,
+        level: 'H', // High error correction to handle center logo overlay
+        background: '#ffffff',
+        foreground: '#8B1E2D' // Maroon foreground
+      });
+      
+      const ctx = canvas.getContext("2d");
+      const center = (size - logoSize) / 2;
+      
+      // Draw white rectangle behind logo to clear QR pixels
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(center - 3, center - 3, logoSize + 6, logoSize + 6);
+      
+      // Draw gold border frame around the center box
+      ctx.strokeStyle = "#C9A54E";
+      ctx.lineWidth = size > 200 ? 3 : 1.5;
+      ctx.strokeRect(center - 3, center - 3, logoSize + 6, logoSize + 6);
+      
+      // Load and overlay the transparent emblem logo
+      const img = new Image();
+      img.onload = function() {
+        ctx.drawImage(img, center, center, logoSize, logoSize);
+      };
+      img.src = "logo.png";
+    }
+
+    // Handles the clean printing of only the generated connection card
+    function printWifiCard() {
+      // Direct update first
+      updateWifiQr();
+      
+      // Add printable class to body
+      document.body.classList.add("print-card-only");
+      
+      // Trigger print window
+      window.print();
+      
+      // Clean up body class after printing begins/cancels
+      setTimeout(() => {
+        document.body.classList.remove("print-card-only");
+      }, 1000);
     }
   </script>
 </body>
