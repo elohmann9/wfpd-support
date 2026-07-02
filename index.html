@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Deployment trigger: 2 -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -770,8 +769,8 @@
               <span class="info-stat-val">11 Rigs</span>
             </li>
             <li class="info-stat-item">
-              <span class="info-stat-label">Primary Freq Band</span>
-              <span class="info-stat-val">VHF P25</span>
+              <span class="info-stat-label">Primary WAN Link</span>
+              <span class="info-stat-val">FirstNet LTE</span>
             </li>
             <li class="info-stat-item">
               <span class="info-stat-label">Last Policy Push</span>
@@ -791,10 +790,10 @@
           <div class="lane-box lane-box-in">
             <div class="lane-box-title">In Your Lane</div>
             <ul class="lane-box-list">
-              <li>Confirm physical power connections and harness fuses.</li>
-              <li>Perform clean system reboots.</li>
-              <li>Read & backup codeplugs in read-only mode.</li>
-              <li>Inspect cables for pinches/damage.</li>
+              <li>Reboot Cradlepoint, Starlink, work iPhones or iPads.</li>
+              <li>Confirm iPad is on the primary <code>WFPD-[UNIT]</code> SSID.</li>
+              <li>Inspect cables, Starlink power connections, and SIM card seats.</li>
+              <li>Toggle Airplane Mode or renew DHCP leases on mobile devices.</li>
             </ul>
           </div>
           
@@ -802,10 +801,10 @@
           <div class="lane-box lane-box-out">
             <div class="lane-box-title">Escalate to Erik</div>
             <ul class="lane-box-list">
-              <li>Writing/uploading config updates to any radio unit.</li>
-              <li>Adding or modifying frequencies/talkgroups in CPS.</li>
-              <li>Flashing system firmware (M150, APX 8500).</li>
-              <li>Any coordination with SMC OES or vendor support.</li>
+              <li>Modifying router WAN priority rules or NetCloud profiles.</li>
+              <li>MDM enrollment overrides, device wipes, or profile resets.</li>
+              <li>Cradlepoint firmware upgrades or factory defaults.</li>
+              <li>Coordinating with FirstNet/Verizon support or Apple Business.</li>
             </ul>
           </div>
         </div>
@@ -816,102 +815,15 @@
       <div class="main-console">
         
         <div>
-          <h2 class="console-section-title">IT & Radio Quick Reference Console</h2>
+          <h2 class="console-section-title">Apparatus IT Support Console</h2>
           <p class="console-section-desc">Locate symptoms below to inspect recommended actions and escalation triggers.</p>
         </div>
 
         <!-- ── TECHNICAL CARDS GRID ── -->
         <div class="card-grid" id="cardGrid">
           
-          <!-- Card 1: BK M150 Green LED -->
-          <div class="tech-card card-radio" data-keywords="bk m150 steady green led no display radio boot reflash firmware">
-            <div class="card-top">
-              <div class="card-name-group">
-                <h3 class="card-name">Steady Green LED</h3>
-                <span class="caret-icon">▼</span>
-              </div>
-              <span class="card-tag tag-radio">BK M150</span>
-            </div>
-            <div class="card-symptom-box">LED is solid green, screen is completely blank, and controls do not respond.</div>
-            <div class="card-body-title">Correction Action:</div>
-            <ul class="card-list">
-              <li>The transceiver is locked in boot. Needs firmware reflash.</li>
-              <li>Plug programming cable into the <code>transceiver body</code> (not head).</li>
-              <li><strong>Critical</strong>: Flash firmware to transceiver AND both control heads. Flashing only one will fail.</li>
-            </ul>
-            <div class="card-footer">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-              Escalate: Reflash requires binary files.
-            </div>
-          </div>
-
-          <!-- Card 2: APX 8500 CHID Error -->
-          <div class="tech-card card-radio" data-keywords="motorola apx 8500 chid error control head id communication cable port">
-            <div class="card-top">
-              <div class="card-name-group">
-                <h3 class="card-name">CHID # ERROR</h3>
-                <span class="caret-icon">▼</span>
-              </div>
-              <span class="card-tag tag-radio">APX 8500</span>
-            </div>
-            <div class="card-symptom-box">Radio screen locks out displaying "CHID # ERROR".</div>
-            <div class="card-body-title">Correction Action:</div>
-            <ul class="card-list">
-              <li>Check programming cable—must connect to the <code>receiver body</code>, never the control head mic port.</li>
-              <li>Verify the head-to-body link cable is fully seated on both ends.</li>
-              <li>New units showing this likely have a blank config codeplug.</li>
-            </ul>
-            <div class="card-footer">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-              Escalate: Required if connections are OK.
-            </div>
-          </div>
-
-          <!-- Card 3: APX 8500 Extra CH -->
-          <div class="tech-card card-radio" data-keywords="motorola apx 8500 extra ch display dual head cps write control">
-            <div class="card-top">
-              <div class="card-name-group">
-                <h3 class="card-name">Extra CH on Display</h3>
-                <span class="caret-icon">▼</span>
-              </div>
-              <span class="card-tag tag-radio">APX 8500</span>
-            </div>
-            <div class="card-symptom-box">Dual-head unit shows "Extra CH" or screen sync issues.</div>
-            <div class="card-body-title">Correction Action:</div>
-            <ul class="card-list">
-              <li>Dual-head configuration must be active in <code>CPS R38</code> profile before writing to the radio.</li>
-              <li>If broken, change setting in offline CPS profile first, then re-write the radio.</li>
-            </ul>
-            <div class="card-footer">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-              Escalate: All writes require sign-off.
-            </div>
-          </div>
-
-          <!-- Card 4: Starlink Offline -->
-          <div class="tech-card card-network" data-keywords="starlink offline internet wan bypass passthrough ethernet adapter cradlepoint">
-            <div class="card-top">
-              <div class="card-name-group">
-                <h3 class="card-name">Starlink Offline</h3>
-                <span class="caret-icon">▼</span>
-              </div>
-              <span class="card-tag tag-network">Starlink</span>
-            </div>
-            <div class="card-symptom-box">Rig internet is down; cell coverage is poor and Starlink status is offline in NCM.</div>
-            <div class="card-body-title">Correction Action:</div>
-            <ul class="card-list">
-              <li>Confirm Starlink router power is active (check vehicle inverter).</li>
-              <li>Verify <code>Bypass Mode</code> is toggled on in the Starlink App.</li>
-              <li>Check ethernet adapter seats in both router and Cradlepoint WAN port.</li>
-            </ul>
-            <div class="card-footer">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-              Escalate: If hardware has power but fails.
-            </div>
-          </div>
-
-          <!-- Card 5: Tablet Command Disconnect -->
-          <div class="tech-card card-network" data-keywords="tablet command ipad wifi connection ssid ops guest dhcp static reservation scene">
+          <!-- Card 1: CAD Tablet Offline -->
+          <div class="tech-card card-network" data-keywords="tablet command ipad wifi connection ssid ops guest dhcp static reservation scene red banner offline dispatch">
             <div class="card-top">
               <div class="card-name-group">
                 <h3 class="card-name">CAD Tablet Offline</h3>
@@ -919,20 +831,130 @@
               </div>
               <span class="card-tag tag-network">iPad / WiFi</span>
             </div>
-            <div class="card-symptom-box">Tablet Command iPad does not update dispatch logs.</div>
+            <div class="card-symptom-box">Tablet Command iPad shows red offline banner, and dispatch CAD logs fail to load.</div>
             <div class="card-body-title">Correction Action:</div>
             <ul class="card-list">
-              <li>Verify iPad is on the primary network: <code>WFPD-[UNIT]</code>.</li>
-              <li>Avoid the <code>-GUEST</code> network, as guest rules block CAD sync routing.</li>
-              <li>Renew lease. The IP must resolve to <code>10.7.X.50</code> (static DHCP).</li>
+              <li>Verify iPad is on primary network: <code>WFPD-[UNIT]</code>.</li>
+              <li>Never connect to the <code>-GUEST</code> network (guest isolation firewall blocks CAD sync routing).</li>
+              <li>Toggle iPad WiFi off/on to renew DHCP lease. Verify IP resolves to static reservation <code>10.7.X.50</code>.</li>
             </ul>
             <div class="card-footer">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-              Escalate: If IP is correct but CAD fails.
+              Escalate: If IP resolves to <code>.50</code> but CAD remains red.
             </div>
           </div>
 
-          <!-- Card 6: All Fleet Offline -->
+          <!-- Card 2: Starlink Offline -->
+          <div class="tech-card card-network" data-keywords="starlink offline internet wan bypass passthrough ethernet adapter cradlepoint power dish disconnect">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">Starlink Offline</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-network">Starlink</span>
+            </div>
+            <div class="card-symptom-box">Rig has no internet; cell coverage is dead and Starlink status is offline in NetCloud.</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>Confirm Starlink router power is active (check vehicle inverter switch and outlet plug).</li>
+              <li>Verify <code>Bypass Mode</code> is toggled on in the Starlink App.</li>
+              <li>Check ethernet adapter seats in both router and Cradlepoint WAN port.</li>
+            </ul>
+            <div class="card-footer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Escalate: If hardware has power/link but fails to connect.
+            </div>
+          </div>
+
+          <!-- Card 3: Starlink Stuck / Stowed -->
+          <div class="tech-card card-network" data-keywords="starlink stuck stowed alignment app settings dish motor flat rotate">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">Starlink Stuck / Stowed</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-network">Starlink</span>
+            </div>
+            <div class="card-symptom-box">Starlink dish remains flat, refuses to rotate, or app reports status as "Stowed".</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>Connect to Starlink router and open the Starlink App on your device.</li>
+              <li>Go to Settings, scroll down, and tap <code>Unstow</code> to deploy the dish motors.</li>
+              <li>Cycle the Starlink power supply to trigger a full motor reset and re-alignment loop.</li>
+            </ul>
+            <div class="card-footer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Escalate: If dish motors refuse to engage.
+            </div>
+          </div>
+
+          <!-- Card 4: iPad USB Tethering Fallback -->
+          <div class="tech-card card-network" data-keywords="ipad usb tethering emergency fallback wan hotspot cradlepoint failover connection">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">Emergency USB Tether</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-network">iPad Fallback</span>
+            </div>
+            <div class="card-symptom-box">Rig primary cellular AND Starlink both fail; emergency internet link is required.</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>Connect work iPad to Cradlepoint IBR1900 USB port using Apple USB cable.</li>
+              <li>On the iPad, open Settings -> <code>Personal Hotspot</code> and toggle it ON.</li>
+              <li>Cradlepoint will auto-detect the USB interface as an active WAN fallback connection.</li>
+            </ul>
+            <div class="card-footer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Notice: Turn Personal Hotspot OFF when primary WAN returns.
+            </div>
+          </div>
+
+          <!-- Card 5: Work iPhone / iPad No Data -->
+          <div class="tech-card card-network" data-keywords="iphone ipad no data cellular firstnet service signal airplane mode mdm">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">Work Phone No Service</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-network">iOS Cellular</span>
+            </div>
+            <div class="card-symptom-box">Work iPhone or iPad has "No Service" or cellular data is unresponsive.</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>Toggle <code>Airplane Mode</code> ON for 10 seconds, then OFF to force a clean re-registration on FirstNet.</li>
+              <li>Ensure Cellular Data Roaming is toggled ON under Cellular Settings.</li>
+              <li>Eject physical FirstNet SIM tray, inspect for dust/alignment, and re-seat.</li>
+            </ul>
+            <div class="card-footer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Escalate: Wipes, eSIM updates, or carrier locks.
+            </div>
+          </div>
+
+          <!-- Card 6: MDM Profile / App Updates -->
+          <div class="tech-card card-network" data-keywords="mdm profile app updates app store waiting download wifi vpn management">
+            <div class="card-top">
+              <div class="card-name-group">
+                <h3 class="card-name">App Update Blocked</h3>
+                <span class="caret-icon">▼</span>
+              </div>
+              <span class="card-tag tag-network">MDM / Updates</span>
+            </div>
+            <div class="card-symptom-box">Work app (Tablet Command, Maps) fails to update or gets stuck on "Waiting".</div>
+            <div class="card-body-title">Correction Action:</div>
+            <ul class="card-list">
+              <li>MDM blocks large app downloads over cell data. Connect to station WiFi or high-speed rig WiFi.</li>
+              <li>Go to Settings -> General -> <code>VPN & Device Management</code> to verify the MDM profile is active.</li>
+              <li>Do not sign into personal Apple IDs; updates are managed automatically.</li>
+            </ul>
+            <div class="card-footer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Escalate: Wipes, MDM token resets.
+            </div>
+          </div>
+
+          <!-- Card 7: NCM Showing Offline -->
           <div class="tech-card card-network" data-keywords="netcloud offline cradlepoint status maintenance network down outage">
             <div class="card-top">
               <div class="card-name-group">
