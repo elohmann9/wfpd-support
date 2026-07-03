@@ -1235,26 +1235,6 @@
             </div>
           </div>
 
-          <!-- Card 5: NCM Showing Offline -->
-          <div class="tech-card card-network" data-keywords="netcloud offline cradlepoint status maintenance network down outage">
-            <div class="card-top">
-              <div class="card-name-group">
-                <h3 class="card-name">NCM Showing Offline</h3>
-                <span class="caret-icon">▼</span>
-              </div>
-              <span class="card-tag tag-network">NetCloud</span>
-            </div>
-            <div class="card-symptom-box">All district apparatus show offline in NCM simultaneously.</div>
-            <div class="card-body-title">Correction Action:</div>
-            <ul class="card-list">
-              <li>Visit <a href="https://status.cradlepoint.com/" target="_blank" style="color:var(--blue); font-weight: 600;">status.cradlepoint.com</a> to check system status.</li>
-              <li>Cradlepoint cloud portal maintenance regularly flags all routers offline even when vehicle internet is working fine.</li>
-            </ul>
-            <div class="card-footer" style="color:var(--primary)">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-              Notice: Do not reset hardware. Wait.
-            </div>
-          </div>
 
           <!-- Card 6: Not Tracking (Versaterm) -->
           <div class="tech-card card-network" data-keywords="versaterm cad dispatch avl not tracking map location coordinates gps">
@@ -1268,13 +1248,29 @@
             <div class="card-symptom-box">Dispatch reports "you are not tracking on CAD" or your unit is missing from dispatch maps.</div>
             <div class="card-body-title">Correction Action:</div>
             <ul class="card-list">
-              <li>Verify the Cradlepoint router's GPS status light is solid green (on the IBR1900 hardware panel).</li>
+              <li>Confirm with dispatch that they have the correct <strong>MMI</strong> (Mobile Mobile Identifier) assigned to your unit in CAD.</li>
+              <li>Verify the Cradlepoint router's <strong>GPS LED</strong> is <strong>solid blue</strong> (on the router front panel).</li>
+              <div style="display: flex; align-items: center; gap: 8px; margin: 8px 0; background: rgba(139, 30, 30, 0.04); border: 1.5px dashed var(--gold); padding: 8px 12px; border-radius: 6px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                  <circle cx="12" cy="12" r="8"></circle>
+                  <line x1="12" y1="1" x2="12" y2="4"></line>
+                  <line x1="12" y1="20" x2="12" y2="23"></line>
+                  <line x1="1" y1="12" x2="4" y2="12"></line>
+                  <line x1="20" y1="12" x2="23" y2="12"></line>
+                  <circle cx="12" cy="12" r="1.5" fill="var(--primary)"></circle>
+                </svg>
+                <div style="font-size: 11px; font-weight: 500; color: var(--primary); line-height: 1.3;">
+                  <strong>R1900 GPS Target Indicator</strong>:<br>
+                  <span style="display: inline-block; width: 8px; height: 8px; background: #0070FF; border-radius: 50%; box-shadow: 0 0 6px #0070FF; margin-right: 4px;"></span> 
+                  Must be <strong>Solid Blue</strong>. If flashing or unlit, GPS lock is missing.
+                </div>
+              </div>
               <li>Check that the Tablet Command app has your correct vehicle unit ID active.</li>
               <li>GPS tracking relies on ignition sense. Cycle vehicle engine off and back on to reboot the AVL tracking unit.</li>
             </ul>
             <div class="card-footer">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-              Escalate: Required if GPS light is off/flashing red.
+              Escalate: Required if GPS light is off or flashing.
             </div>
           </div>
 
@@ -1312,7 +1308,7 @@
             <div class="card-symptom-box">Crew needs replacement screen protectors, chargers, vehicle mounts, or cables.</div>
             <div class="card-body-title">Correction Action:</div>
             <ul class="card-list">
-              <li>Check the marked <code>IT Supply Box</code> located in the station office cabinet (Station 7 & Station 19).</li>
+              <li>Check the marked <code>IT Supply Box</code> located in the basement at station 7 in the operations cage.</li>
               <li>Only use Apple-certified chargers from the box; generic cords cause screen noise and battery issues.</li>
               <li>Clean the screen with an alcohol wipe from the box before applying new screen protectors.</li>
             </ul>
@@ -1331,11 +1327,10 @@
               </div>
               <span class="card-tag tag-network">Accounts</span>
             </div>
-            <div class="card-symptom-box">Locked out of dispatch apps, forgot account passwords, or need rig Wi-Fi security keys.</div>
+            <div class="card-symptom-box">Locked out of dispatch apps or forgot account passwords.</div>
             <div class="card-body-title">Correction Action:</div>
             <ul class="card-list">
-              <li><strong>Vaultwarden Manager</strong>: All shared credentials, logins, and WiFi security keys are stored in the district <code>Vaultwarden</code> vault.</li>
-              <li><strong>Rig Wi-Fi Keys</strong>: Stored securely in Vaultwarden, or printed on the bottom of the Cradlepoint router bracket in the wiring bay.</li>
+              <li><strong>Vaultwarden Manager</strong>: All shared credentials and logins are stored in the district <code>Vaultwarden</code> vault.</li>
               <li><strong>App Lockouts</strong>: For Tablet Command or Target Solutions, reset using your standard <code>woodsidefire.org</code> Active Directory credentials.</li>
             </ul>
             <div class="card-footer">
@@ -1443,13 +1438,13 @@
         <!-- ── DUAL HOTLINE ACTION CARD ── -->
         <div class="panel action-panel">
           <h2>Technical Escalation Required?</h2>
-          <p>If troubleshooting steps do not clear the fault, or if the procedure requires IT authorization (writes, flashes, SMC OES interface changes), contact Erik immediately.</p>
+          <p>If troubleshooting steps do not clear the fault, or if the procedure requires IT authorization (writes, flashes, SMC OES interface changes), submit an IT ticket or call support immediately.</p>
           <div class="action-buttons">
             <a href="tel:+14157379223" class="action-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
               Call Radio & IT Support
             </a>
-            <a href="mailto:erik@kerchunknetworks.com" class="action-btn">
+            <a href="mailto:elohmann@woodsidefire.gov?cc=smckenzie@woodsidefire.gov&subject=WFPD%20IT%20Support%20Ticket" class="action-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
               Email IT Ticket
             </a>
